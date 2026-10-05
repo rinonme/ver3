@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -8,181 +6,154 @@ namespace WpfApp1
 {
     public partial class MainWindow : Window
     {
-     
-        Dictionary<string, int> drinkPrices =
-            new Dictionary<string, int>()
-            {
-                { "紅茶大杯", 60 },
-                { "紅茶小杯", 40 },
-                { "綠茶大杯", 60 },
-                { "綠茶小杯", 40 },
-                { "可樂大杯", 50 },
-                { "可樂小杯", 30 }
-            };
-
-
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        private void DrinkTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var targetTextBox = sender as TextBox;
+
+            if (targetTextBox == null)
+            {
+                return;
+            }
+
+            if (targetTextBox.Text == "")
+            {
+                return;
+            }
+
+            if (!int.TryParse(targetTextBox.Text, out int quantity))
+            {
+                MessageBox.Show("請輸入正確的數字！");
+                targetTextBox.Text = "";
+            }
+            else if (quantity < 0)
+            {
+                MessageBox.Show("數量不能小於 0！");
+                targetTextBox.Text = "";
+            }
+        }
 
         private void OrderButton_Click(object sender, RoutedEventArgs e)
         {
-            
-            Dictionary<string, int> order =
-                new Dictionary<string, int>();
+            int blackTeaLarge = GetQuantity(BlackTeaLargeTextBox);
+            int blackTeaSmall = GetQuantity(BlackTeaSmallTextBox);
+            int greenTeaLarge = GetQuantity(GreenTeaLargeTextBox);
+            int greenTeaSmall = GetQuantity(GreenTeaSmallTextBox);
+            int colaLarge = GetQuantity(ColaLargeTextBox);
+            int colaSmall = GetQuantity(ColaSmallTextBox);
 
-            if (BlackTeaLargeCheckBox.IsChecked == true)
-            {
-                order["紅茶大杯"] =
-                    Convert.ToInt32(BlackTeaLargeSlider.Value);
-            }
+            int blackTeaLargePrice = 60;
+            int blackTeaSmallPrice = 40;
+            int greenTeaLargePrice = 60;
+            int greenTeaSmallPrice = 40;
+            int colaLargePrice = 50;
+            int colaSmallPrice = 30;
 
-            if (BlackTeaSmallCheckBox.IsChecked == true)
-            {
-                order["紅茶小杯"] =
-                    Convert.ToInt32(BlackTeaSmallSlider.Value);
-            }
+            int blackTeaLargeTotal =
+                blackTeaLarge * blackTeaLargePrice;
 
-            if (GreenTeaLargeCheckBox.IsChecked == true)
-            {
-                order["綠茶大杯"] =
-                    Convert.ToInt32(GreenTeaLargeSlider.Value);
-            }
+            int blackTeaSmallTotal =
+                blackTeaSmall * blackTeaSmallPrice;
 
-            if (GreenTeaSmallCheckBox.IsChecked == true)
-            {
-                order["綠茶小杯"] =
-                    Convert.ToInt32(GreenTeaSmallSlider.Value);
-            }
+            int greenTeaLargeTotal =
+                greenTeaLarge * greenTeaLargePrice;
 
-            if (ColaLargeCheckBox.IsChecked == true)
-            {
-                order["可樂大杯"] =
-                    Convert.ToInt32(ColaLargeSlider.Value);
-            }
+            int greenTeaSmallTotal =
+                greenTeaSmall * greenTeaSmallPrice;
 
-            if (ColaSmallCheckBox.IsChecked == true)
-            {
-                order["可樂小杯"] =
-                    Convert.ToInt32(ColaSmallSlider.Value);
-            }
+            int colaLargeTotal =
+                colaLarge * colaLargePrice;
 
-            if (order.Count == 0)
+            int colaSmallTotal =
+                colaSmall * colaSmallPrice;
+
+            int total =
+                blackTeaLargeTotal +
+                blackTeaSmallTotal +
+                greenTeaLargeTotal +
+                greenTeaSmallTotal +
+                colaLargeTotal +
+                colaSmallTotal;
+
+            if (total == 0)
             {
-                MessageBox.Show("請至少選擇一項飲料！");
+                MessageBox.Show("請至少輸入一項飲料數量！");
                 return;
             }
 
+            string result =
+                "訂購結果：" + Environment.NewLine;
 
-            string eatingMethod;
-
-            if (DineInRadioButton.IsChecked == true)
+            if (blackTeaLarge > 0)
             {
-                eatingMethod = "內用";
-            }
-            else
-            {
-                eatingMethod = "外帶";
+                result +=
+                    $"紅茶大杯 {blackTeaLarge} 杯 = {blackTeaLargeTotal} 元"
+                    + Environment.NewLine;
             }
 
-            int originalTotal = 0;
-
-
-            foreach (var item in order)
+            if (blackTeaSmall > 0)
             {
-                string drinkName = item.Key;
-                int quantity = item.Value;
-
-                int price = drinkPrices[drinkName];
-
-                originalTotal += price * quantity;
+                result +=
+                    $"紅茶小杯 {blackTeaSmall} 杯 = {blackTeaSmallTotal} 元"
+                    + Environment.NewLine;
             }
 
-            if (originalTotal == 0)
+            if (greenTeaLarge > 0)
             {
-                MessageBox.Show("請將飲料數量調整為至少 1 杯！");
-                return;
+                result +=
+                    $"綠茶大杯 {greenTeaLarge} 杯 = {greenTeaLargeTotal} 元"
+                    + Environment.NewLine;
             }
 
-            double discountRate = 1.0;
-
-            if (originalTotal >= 500)
+            if (greenTeaSmall > 0)
             {
-                discountRate = 0.8;
-            }
-            else if (originalTotal >= 300)
-            {
-                discountRate = 0.9;
+                result +=
+                    $"綠茶小杯 {greenTeaSmall} 杯 = {greenTeaSmallTotal} 元"
+                    + Environment.NewLine;
             }
 
-
-            int discountTotal =
-                Convert.ToInt32(originalTotal * discountRate);
-
-
-            int discountMoney =
-                originalTotal - discountTotal;
-
-            StringBuilder result =
-                new StringBuilder();
-
-
-            result.AppendLine("訂購結果：");
-            result.AppendLine(
-                "用餐方式：" + eatingMethod);
-            result.AppendLine();
-
-            foreach (var item in order)
+            if (colaLarge > 0)
             {
-                string drinkName = item.Key;
-                int quantity = item.Value;
-
-                int price = drinkPrices[drinkName];
-
-                int subtotal =
-                    price * quantity;
-
-
-                result.AppendLine(
-                    $"{drinkName} {quantity} 杯 = {subtotal} 元");
+                result +=
+                    $"可樂大杯 {colaLarge} 杯 = {colaLargeTotal} 元"
+                    + Environment.NewLine;
             }
 
-
-            result.AppendLine();
-            result.AppendLine(
-                $"原始金額：{originalTotal} 元");
-
-            if (discountRate == 1.0)
+            if (colaSmall > 0)
             {
-                result.AppendLine("折扣：無");
-            }
-            else if (discountRate == 0.9)
-            {
-                result.AppendLine("折扣：9折");
-            }
-            else if (discountRate == 0.8)
-            {
-                result.AppendLine("折扣：8折");
+                result +=
+                    $"可樂小杯 {colaSmall} 杯 = {colaSmallTotal} 元"
+                    + Environment.NewLine;
             }
 
+            result += Environment.NewLine;
+            result += $"總金額：{total} 元";
 
-            result.AppendLine(
-                $"折扣金額：{discountMoney} 元");
-
-
-            result.AppendLine(
-                $"應付金額：{discountTotal} 元");
-
-            OrderResultTextBlock.Text =
-                result.ToString();
+            OrderResultTextBlock.Text = result;
 
             MessageBox.Show(
                 $"訂購完成！{Environment.NewLine}" +
-                $"用餐方式：{eatingMethod}{Environment.NewLine}" +
-                $"應付金額：{discountTotal} 元"
+                $"總金額：{total} 元"
             );
+        }
+
+        private int GetQuantity(TextBox textBox)
+        {
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                return 0;
+            }
+
+            if (int.TryParse(textBox.Text, out int quantity))
+            {
+                return quantity;
+            }
+
+            return Convert.ToInt32("0");
         }
     }
 }
