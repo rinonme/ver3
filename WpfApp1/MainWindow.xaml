@@ -1,0 +1,546 @@
+﻿<Window x:Class="WpfApp1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WPF飲料訂購Ver2"
+        Height="400"
+        Width="600">
+
+    <Grid Margin="5">
+
+        <!-- ======================================== -->
+        <!-- Grid 列 -->
+        <!-- ======================================== -->
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="28"/>
+            <RowDefinition Height="28"/>
+            <RowDefinition Height="28"/>
+            <RowDefinition Height="28"/>
+            <RowDefinition Height="28"/>
+            <RowDefinition Height="28"/>
+            <RowDefinition Height="15"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+
+        <!-- ======================================== -->
+        <!-- Grid 欄 -->
+        <!-- ======================================== -->
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="400"/>
+            <ColumnDefinition Width="160"/>
+        </Grid.ColumnDefinitions>
+
+
+        <!-- ======================================== -->
+        <!-- 內用 / 外帶 -->
+        <!-- 自訂外框，讓文字兩側的線斷開 -->
+        <!-- ======================================== -->
+
+        <Grid Grid.Row="0"
+              Grid.Column="0">
+
+            <!-- 最外面的框線 -->
+            <Border BorderBrush="#D6D6D6"
+                    BorderThickness="1"
+                    Margin="5,7,5,2"
+                    Background="White">
+
+                <!-- 橘色區塊 -->
+                <Border Background="#FFE5B5"
+                        Margin="5,7,5,5">
+
+                    <StackPanel Orientation="Horizontal"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <RadioButton x:Name="DineInRadioButton"
+                                     Content="內用"
+                                     GroupName="EatingMethod"
+                                     IsChecked="True"
+                                     FontSize="11"
+                                     Margin="5,0,20,0"
+                                     VerticalAlignment="Center"/>
+
+                        <RadioButton x:Name="TakeOutRadioButton"
+                                     Content="外帶"
+                                     GroupName="EatingMethod"
+                                     FontSize="11"
+                                     VerticalAlignment="Center"/>
+
+                    </StackPanel>
+
+                </Border>
+
+            </Border>
+
+
+            <!-- 外框線上的標題 -->
+            <TextBlock Text="內用/外帶"
+                       FontSize="11"
+                       Background="White"
+                       Padding="5,0"
+                       HorizontalAlignment="Left"
+                       VerticalAlignment="Top"
+                       Margin="15,0,0,0"/>
+
+        </Grid>
+
+
+        <!-- ======================================== -->
+        <!-- 紅茶大杯 -->
+        <!-- ======================================== -->
+
+        <Border Grid.Row="1"
+                Grid.Column="0"
+                Background="#F4F7D9">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+
+
+                <!-- CheckBox -->
+                <CheckBox Grid.Column="0"
+                          x:Name="BlackTeaLargeCheckBox"
+                          IsThreeState="False"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"/>
+
+
+                <!-- 飲料名稱 -->
+                <Label Grid.Column="1"
+                       Content="紅茶大杯"
+                       FontSize="12"
+                       Foreground="#B87976"
+                       Padding="0"
+                       VerticalContentAlignment="Center"/>
+
+
+                <!-- 價格 -->
+                <Label Grid.Column="2"
+                       Content="60元"
+                       FontSize="12"
+                       Foreground="Blue"
+                       Padding="0"
+                       VerticalContentAlignment="Center"/>
+
+
+                <!-- Slider -->
+                <Slider Grid.Column="3"
+                        x:Name="BlackTeaLargeSlider"
+                        Minimum="0"
+                        Maximum="10"
+                        Value="0"
+                        TickFrequency="1"
+                        TickPlacement="BottomRight"
+                        IsSnapToTickEnabled="True"
+                        Width="140"
+                        Height="20"
+                        VerticalAlignment="Center"/>
+
+
+                <!-- Data Binding -->
+                <Label Grid.Column="4"
+                       Content="{Binding Value,
+                                         ElementName=BlackTeaLargeSlider,
+                                         StringFormat={}{0:0}}"
+                       FontSize="12"
+                       Padding="0"
+                       VerticalContentAlignment="Center"
+                       HorizontalContentAlignment="Center"/>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- ======================================== -->
+        <!-- 紅茶小杯 -->
+        <!-- ======================================== -->
+
+        <Border Grid.Row="2"
+                Grid.Column="0"
+                Background="#F4F7D9">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+
+
+                <CheckBox Grid.Column="0"
+                          x:Name="BlackTeaSmallCheckBox"
+                          IsThreeState="False"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"/>
+
+
+                <Label Grid.Column="1"
+                       Content="紅茶小杯"
+                       FontSize="12"
+                       Foreground="#B87976"
+                       Padding="0"
+                       VerticalContentAlignment="Center"/>
+
+
+                <Label Grid.Column="2"
+                       Content="40元"
+                       FontSize="12"
+                       Foreground="Blue"
+                       Padding="0"
+                       VerticalContentAlignment="Center"/>
+
+
+                <Slider Grid.Column="3"
+                        x:Name="BlackTeaSmallSlider"
+                        Minimum="0"
+                        Maximum="10"
+                        Value="0"
+                        TickFrequency="1"
+                        TickPlacement="BottomRight"
+                        IsSnapToTickEnabled="True"
+                        Width="140"
+                        Height="20"
+                        VerticalAlignment="Center"/>
+
+
+                <Label Grid.Column="4"
+                       Content="{Binding Value,
+                                         ElementName=BlackTeaSmallSlider,
+                                         StringFormat={}{0:0}}"
+                       FontSize="12"
+                       Padding="0"
+                       VerticalContentAlignment="Center"
+                       HorizontalContentAlignment="Center"/>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- ======================================== -->
+        <!-- 綠茶大杯 -->
+        <!-- ======================================== -->
+
+        <Border Grid.Row="3"
+                Grid.Column="0"
+                Background="#F4F7D9">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+
+
+                <CheckBox Grid.Column="0"
+                          x:Name="GreenTeaLargeCheckBox"
+                          IsThreeState="False"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"/>
+
+
+                <Label Grid.Column="1"
+                       Content="綠茶大杯"
+                       FontSize="12"
+                       Foreground="#B87976"
+                       Padding="0"
+                       VerticalContentAlignment="Center"/>
+
+
+                <Label Grid.Column="2"
+                       Content="60元"
+                       FontSize="12"
+                       Foreground="Blue"
+                       Padding="0"
+                       VerticalContentAlignment="Center"/>
+
+
+                <Slider Grid.Column="3"
+                        x:Name="GreenTeaLargeSlider"
+                        Minimum="0"
+                        Maximum="10"
+                        Value="0"
+                        TickFrequency="1"
+                        TickPlacement="BottomRight"
+                        IsSnapToTickEnabled="True"
+                        Width="140"
+                        Height="20"
+                        VerticalAlignment="Center"/>
+
+
+                <Label Grid.Column="4"
+                       Content="{Binding Value,
+                                         ElementName=GreenTeaLargeSlider,
+                                         StringFormat={}{0:0}}"
+                       FontSize="12"
+                       Padding="0"
+                       VerticalContentAlignment="Center"
+                       HorizontalContentAlignment="Center"/>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- ======================================== -->
+        <!-- 綠茶小杯 -->
+        <!-- ======================================== -->
+
+        <Border Grid.Row="4"
+                Grid.Column="0"
+                Background="#F4F7D9">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+
+
+                <CheckBox Grid.Column="0"
+                          x:Name="GreenTeaSmallCheckBox"
+                          IsThreeState="False"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"/>
+
+
+                <Label Grid.Column="1"
+                       Content="綠茶小杯"
+                       FontSize="12"
+                       Foreground="#B87976"
+                       Padding="0"
+                       VerticalContentAlignment="Center"/>
+
+
+                <Label Grid.Column="2"
+                       Content="40元"
+                       FontSize="12"
+                       Foreground="Blue"
+                       Padding="0"
+                       VerticalContentAlignment="Center"/>
+
+
+                <Slider Grid.Column="3"
+                        x:Name="GreenTeaSmallSlider"
+                        Minimum="0"
+                        Maximum="10"
+                        Value="0"
+                        TickFrequency="1"
+                        TickPlacement="BottomRight"
+                        IsSnapToTickEnabled="True"
+                        Width="140"
+                        Height="20"
+                        VerticalAlignment="Center"/>
+
+
+                <Label Grid.Column="4"
+                       Content="{Binding Value,
+                                         ElementName=GreenTeaSmallSlider,
+                                         StringFormat={}{0:0}}"
+                       FontSize="12"
+                       Padding="0"
+                       VerticalContentAlignment="Center"
+                       HorizontalContentAlignment="Center"/>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- ======================================== -->
+        <!-- 可樂大杯 -->
+        <!-- ======================================== -->
+
+        <Border Grid.Row="5"
+                Grid.Column="0"
+                Background="#F4F7D9">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+
+
+                <CheckBox Grid.Column="0"
+                          x:Name="ColaLargeCheckBox"
+                          IsThreeState="False"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"/>
+
+
+                <Label Grid.Column="1"
+                       Content="可樂大杯"
+                       FontSize="12"
+                       Foreground="#B87976"
+                       Padding="0"
+                       VerticalContentAlignment="Center"/>
+
+
+                <Label Grid.Column="2"
+                       Content="50元"
+                       FontSize="12"
+                       Foreground="Blue"
+                       Padding="0"
+                       VerticalContentAlignment="Center"/>
+
+
+                <Slider Grid.Column="3"
+                        x:Name="ColaLargeSlider"
+                        Minimum="0"
+                        Maximum="10"
+                        Value="0"
+                        TickFrequency="1"
+                        TickPlacement="BottomRight"
+                        IsSnapToTickEnabled="True"
+                        Width="140"
+                        Height="20"
+                        VerticalAlignment="Center"/>
+
+
+                <Label Grid.Column="4"
+                       Content="{Binding Value,
+                                         ElementName=ColaLargeSlider,
+                                         StringFormat={}{0:0}}"
+                       FontSize="12"
+                       Padding="0"
+                       VerticalContentAlignment="Center"
+                       HorizontalContentAlignment="Center"/>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- ======================================== -->
+        <!-- 可樂小杯 -->
+        <!-- ======================================== -->
+
+        <Border Grid.Row="6"
+                Grid.Column="0"
+                Background="#F4F7D9">
+
+            <Grid>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="25"/>
+                    <ColumnDefinition Width="70"/>
+                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="40"/>
+                </Grid.ColumnDefinitions>
+
+
+                <CheckBox Grid.Column="0"
+                          x:Name="ColaSmallCheckBox"
+                          IsThreeState="False"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"/>
+
+
+                <Label Grid.Column="1"
+                       Content="可樂小杯"
+                       FontSize="12"
+                       Foreground="#B87976"
+                       Padding="0"
+                       VerticalContentAlignment="Center"/>
+
+
+                <Label Grid.Column="2"
+                       Content="30元"
+                       FontSize="12"
+                       Foreground="Blue"
+                       Padding="0"
+                       VerticalContentAlignment="Center"/>
+
+
+                <Slider Grid.Column="3"
+                        x:Name="ColaSmallSlider"
+                        Minimum="0"
+                        Maximum="10"
+                        Value="0"
+                        TickFrequency="1"
+                        TickPlacement="BottomRight"
+                        IsSnapToTickEnabled="True"
+                        Width="140"
+                        Height="20"
+                        VerticalAlignment="Center"/>
+
+
+                <Label Grid.Column="4"
+                       Content="{Binding Value,
+                                         ElementName=ColaSmallSlider,
+                                         StringFormat={}{0:0}}"
+                       FontSize="12"
+                       Padding="0"
+                       VerticalContentAlignment="Center"
+                       HorizontalContentAlignment="Center"/>
+
+            </Grid>
+
+        </Border>
+
+
+        <!-- ======================================== -->
+        <!-- 訂購按鈕 -->
+        <!-- ======================================== -->
+
+        <Button Grid.Row="1"
+                Grid.Column="1"
+                Grid.RowSpan="6"
+                Content="訂購"
+                Width="125"
+                Height="48"
+                FontSize="16"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Click="OrderButton_Click"/>
+
+
+        <!-- ======================================== -->
+        <!-- 訂購結果 -->
+        <!-- ======================================== -->
+
+        <Border Grid.Row="8"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Background="#FFF4E8">
+
+            <TextBlock x:Name="OrderResultTextBlock"
+                       Margin="10"
+                       TextWrapping="Wrap"
+                       VerticalAlignment="Top"
+                       FontSize="12"/>
+
+        </Border>
+
+    </Grid>
+
+</Window>
