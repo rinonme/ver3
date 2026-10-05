@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -8,10 +8,7 @@ namespace WpfApp1
 {
     public partial class MainWindow : Window
     {
-        // ==========================================
-        // 飲料價格 Dictionary
-        // ==========================================
-
+     
         Dictionary<string, int> drinkPrices =
             new Dictionary<string, int>()
             {
@@ -30,23 +27,11 @@ namespace WpfApp1
         }
 
 
-        // ==========================================
-        // 訂購按鈕
-        // ==========================================
-
         private void OrderButton_Click(object sender, RoutedEventArgs e)
         {
-            // ======================================
-            // Dictionary 儲存使用者實際選購的訂單
-            // ======================================
-
+            
             Dictionary<string, int> order =
                 new Dictionary<string, int>();
-
-
-            // ======================================
-            // 動態取得使用者勾選的飲料
-            // ======================================
 
             if (BlackTeaLargeCheckBox.IsChecked == true)
             {
@@ -84,21 +69,12 @@ namespace WpfApp1
                     Convert.ToInt32(ColaSmallSlider.Value);
             }
 
-
-            // ======================================
-            // 判斷有沒有選購飲料
-            // ======================================
-
             if (order.Count == 0)
             {
                 MessageBox.Show("請至少選擇一項飲料！");
                 return;
             }
 
-
-            // ======================================
-            // 取得用餐方式
-            // ======================================
 
             string eatingMethod;
 
@@ -110,11 +86,6 @@ namespace WpfApp1
             {
                 eatingMethod = "外帶";
             }
-
-
-            // ======================================
-            // 計算原始總金額
-            // ======================================
 
             int originalTotal = 0;
 
@@ -129,21 +100,11 @@ namespace WpfApp1
                 originalTotal += price * quantity;
             }
 
-
-            // ======================================
-            // 如果勾選了飲料但數量全部為 0
-            // ======================================
-
             if (originalTotal == 0)
             {
                 MessageBox.Show("請將飲料數量調整為至少 1 杯！");
                 return;
             }
-
-
-            // ======================================
-            // 售價折扣算法
-            // ======================================
 
             double discountRate = 1.0;
 
@@ -164,11 +125,6 @@ namespace WpfApp1
             int discountMoney =
                 originalTotal - discountTotal;
 
-
-            // ======================================
-            // 建立訂購結果
-            // ======================================
-
             StringBuilder result =
                 new StringBuilder();
 
@@ -177,11 +133,6 @@ namespace WpfApp1
             result.AppendLine(
                 "用餐方式：" + eatingMethod);
             result.AppendLine();
-
-
-            // ======================================
-            // 動態列出 Dictionary 裡的訂單
-            // ======================================
 
             foreach (var item in order)
             {
@@ -202,11 +153,6 @@ namespace WpfApp1
             result.AppendLine();
             result.AppendLine(
                 $"原始金額：{originalTotal} 元");
-
-
-            // ======================================
-            // 顯示折扣
-            // ======================================
 
             if (discountRate == 1.0)
             {
@@ -229,18 +175,8 @@ namespace WpfApp1
             result.AppendLine(
                 $"應付金額：{discountTotal} 元");
 
-
-            // ======================================
-            // 顯示在畫面下方
-            // ======================================
-
             OrderResultTextBlock.Text =
                 result.ToString();
-
-
-            // ======================================
-            // 顯示完成訊息
-            // ======================================
 
             MessageBox.Show(
                 $"訂購完成！{Environment.NewLine}" +
